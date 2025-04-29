@@ -1,0 +1,199 @@
+Question NO.1:
+#include<iostream>
+using namespace std;
+class Room{
+    private:
+        string name;
+        int area;
+    public:
+        Room(string name, int area){
+            this->name = name;
+            this->area = area;
+        } 
+        Room(){
+            name = "";
+            area=0;
+        }  
+            
+
+        string getName(){
+            return name;
+        }          
+        int getArea(){
+            return area;
+        }
+        void setName(string name){
+            this->name = name;
+        }  
+        void setArea(int area){
+            this->area = area;
+        }
+        void display(){
+            cout << "Name: " << name << endl;
+            cout << "Area: " << area << endl;
+        }
+};
+class House{
+    private:
+        string address;  
+        int numRooms;
+        Room rooms[10];
+      int roomcount;
+    public:  
+        House(string address, int numRooms){
+            this->address = address;
+            this->numRooms = numRooms;
+            roomcount = 0;
+        }
+        House(){
+            address = "";
+            numRooms = 0;
+            roomcount = 0;
+        }
+        string getAddress(){
+            return address;
+        }
+        int getNumRooms(){
+            return numRooms;
+        }
+        void setAddress(string address){
+            this->address = address;
+        }
+        void setNumRooms(int numRooms){
+            this->numRooms = numRooms;
+        }
+
+        void addRoom(Room room){
+            rooms[roomcount] = room;
+            roomcount++;
+        }      
+                void display(){
+                    cout << "Address: " << address << endl;
+                        cout << "Number of Rooms: " << numRooms << endl;
+                        for(int i = 0; i < roomcount; i++)
+                                        rooms[i].display();
+                }   
+                          
+};
+int main(){
+  House house("317 Main St", 3);
+    Room room1("Living Room", 200);
+    Room room2("Bedroom", 150);
+    Room room3("Kitchen", 100);
+        house.addRoom(room1);
+        house.addRoom(room2);
+        house.addRoom(room3);
+        house.display();
+        return 0;
+}
+=======================================================================================
+Question NO. 2;
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Actor; 
+class Movie {
+public:
+    string title;
+    int releaseYear;
+    Actor* actors[10];
+    int actorCount;
+
+    Movie() {
+        title = "";
+        releaseYear = 0;
+        actorCount = 0;
+        for (int i = 0; i < 10; i++) {
+            actors[i] = 0;
+        }
+    }
+
+    void setData(const string& t, int y) {
+        title = t;
+        releaseYear = y;
+    }
+
+    void addActor(Actor* a) {
+        if (actorCount < 10) {
+            actors[actorCount] = a;
+            actorCount++;
+        }
+    }
+
+    void showActors();
+};
+
+class Actor {
+public:
+    string name;
+    int age;
+    Movie* movies[10];
+    int movieCount;
+
+    Actor() {
+        name = "";
+        age = 0;
+        movieCount = 0;
+        for (int i = 0; i < 10; i++) {
+            movies[i] = 0;
+        }
+    }
+
+    void setData(const string& n, int a) {
+        name = n;
+        age = a;
+    }
+
+    void addMovie(Movie* m) {
+        if (movieCount < 10) {
+            movies[movieCount] = m;
+            movieCount++;
+        }
+    }
+
+    void showMovies() {
+        cout << "Movies of " << name << ":\n";
+        for (int i = 0; i < movieCount; i++) {
+            if (movies[i] != 0) {
+                cout << i + 1 << ". " << movies[i]->title << endl;
+            }
+        }
+    }
+};
+
+void Movie::showActors() {
+    cout << "Actors in  "<< title <<endl;
+    for (int i = 0; i < actorCount; i++) {
+        if (actors[i] != 0) {
+            cout << i + 1 << ". " << actors[i]->name <<"  "<<actors[i]->age<< endl;
+        }
+    }
+}
+
+void assignActorToMovie(Actor* actor, Movie* movie) {
+    actor->addMovie(movie);
+    movie->addActor(actor);
+}
+
+int main() {
+    Actor actor1, actor2 ,actor3;
+    Movie movie1, movie2,movie3;
+
+    actor1.setData("salman khan", 67);
+    actor2.setData("ali khan", 34);
+    actor3.setData("shahrukh khan", 56);
+    movie1.setData("Sultan", 1994);
+    movie2.setData("farzi", 2017);
+    movie3.setData("dabang", 2010);
+
+    assignActorToMovie(&actor1, &movie1);
+    assignActorToMovie(&actor2, &movie2);
+    assignActorToMovie(&actor3, &movie3);
+    actor1.showMovies();
+    actor2.showMovies();
+    movie1.showActors();
+    movie2.showActors();
+    movie3.showActors();
+    return 0;
+}
